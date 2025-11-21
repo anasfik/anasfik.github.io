@@ -8,6 +8,18 @@
 <body>
     <h1>Gwhyyy</h1>
     
+    <section id="stats">
+        <p>
+            <strong>Visits:</strong> <span id="visitCounter">0</span> | 
+            <strong>Morocco Time:</strong> <span id="moroccoTime">--:--:--</span> | 
+            <strong>Experience:</strong> <span id="yearsExperience">0</span> years
+        </p>
+    </section>
+    
+    <section id="devQuote">
+        <p><em id="quoteText"></em></p>
+    </section>
+    
     <hr>
     
     <section id="about">
@@ -54,7 +66,7 @@
     <hr>
     
     <footer>
-        <p>&copy; 2025 Gwhyyy. All rights reserved.</p>
+        <p>&copy; 2025 Gwhyyy. All rights reserved. | Last updated: <span id="lastUpdated">--</span></p>
     </footer>
 
     <script>
@@ -64,6 +76,32 @@
 
         // About Me Text
         const aboutMe = "Flutter developer from Morocco. Building open-source tools and micro-SaaS products.";
+        
+        // Years of Experience (set your coding start date)
+        const codingStartDate = new Date('2018-01-01');
+        
+        // GitHub Username
+        const githubUsername = "anasfik";
+        
+        // Email
+        const emailAddress = "work@gwhyyy.com";
+        
+        // Last Updated Date (update this when you make changes)
+        const lastUpdatedDate = "November 21, 2025";
+        
+        // Dev Quotes
+        const devQuotes = [
+            "Code is like humor. When you have to explain it, it's bad.",
+            "First, solve the problem. Then, write the code.",
+            "Make it work, make it right, make it fast.",
+            "Clean code always looks like it was written by someone who cares.",
+            "The best error message is the one that never shows up.",
+            "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
+            "Simplicity is the soul of efficiency.",
+            "Good code is its own best documentation.",
+            "Programming isn't about what you know; it's about what you can figure out.",
+            "The only way to go fast is to go well."
+        ];
 
         const skills = [
           {
@@ -162,9 +200,81 @@
         // RENDERING FUNCTIONS - NO NEED TO EDIT BELOW
         // ============================================
         
-        // Render About Me
+        // Typing Animation for About Me
+        function typeWriter(text, elementId, speed = 50) {
+            let i = 0;
+            const element = document.getElementById(elementId);
+            element.textContent = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+        
+        // Render About Me with Typing Animation
         function renderAbout() {
-            document.getElementById('aboutText').textContent = aboutMe;
+            typeWriter(aboutMe, 'aboutText', 50);
+        }
+        
+        // Visit Counter (using localStorage)
+        function updateVisitCounter() {
+            let visits = localStorage.getItem('portfolioVisits');
+            if (visits === null) {
+                visits = 0;
+            }
+            visits = parseInt(visits) + 1;
+            localStorage.setItem('portfolioVisits', visits);
+            document.getElementById('visitCounter').textContent = visits;
+        }
+        
+        // Morocco Time (Africa/Casablanca timezone)
+        function updateMoroccoTime() {
+            const options = {
+                timeZone: 'Africa/Casablanca',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
+            const moroccoTime = new Date().toLocaleTimeString('en-US', options);
+            document.getElementById('moroccoTime').textContent = moroccoTime;
+        }
+        
+        // Calculate Years of Experience
+        function calculateExperience() {
+            const now = new Date();
+            const diffTime = Math.abs(now - codingStartDate);
+            const diffYears = diffTime / (1000 * 60 * 60 * 24 * 365.25);
+            const years = Math.floor(diffYears * 10) / 10;
+            document.getElementById('yearsExperience').textContent = years;
+        }
+        
+        // Random Dev Quote
+        function displayRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * devQuotes.length);
+            const quote = devQuotes[randomIndex];
+            document.getElementById('quoteText').textContent = '"' + quote + '"';
+        }
+        
+        // Last Updated
+        function displayLastUpdated() {
+            document.getElementById('lastUpdated').textContent = lastUpdatedDate;
+        }
+        
+        // Click to Copy functionality
+        function copyToClipboard(text, elementId) {
+            navigator.clipboard.writeText(text).then(function() {
+                const originalText = document.getElementById(elementId).textContent;
+                document.getElementById(elementId).textContent = '✓ Copied!';
+                setTimeout(function() {
+                    document.getElementById(elementId).textContent = originalText;
+                }, 2000);
+            });
         }
         
         // Render Skills
@@ -251,6 +361,15 @@
                     emailLink.href = 'mailto:' + item.value;
                     emailLink.textContent = item.value;
                     li.appendChild(emailLink);
+                    li.appendChild(document.createTextNode(' '));
+                    
+                    const copyBtn = document.createElement('button');
+                    copyBtn.textContent = '📋 Copy';
+                    copyBtn.id = 'copyEmailBtn';
+                    copyBtn.onclick = function() {
+                        copyToClipboard(emailAddress, 'copyEmailBtn');
+                    };
+                    li.appendChild(copyBtn);
                 } else {
                     li.appendChild(document.createTextNode(item.value));
                 }
@@ -271,6 +390,19 @@
                 link.textContent = social.name;
                 link.target = "_blank";
                 li.appendChild(link);
+                
+                if (social.name === 'GitHub') {
+                    li.appendChild(document.createTextNode(' (@' + githubUsername + ') '));
+                    
+                    const copyBtn = document.createElement('button');
+                    copyBtn.textContent = '📋 Copy';
+                    copyBtn.id = 'copyGithubBtn';
+                    copyBtn.onclick = function() {
+                        copyToClipboard(githubUsername, 'copyGithubBtn');
+                    };
+                    li.appendChild(copyBtn);
+                }
+                
                 socialsList.appendChild(li);
             });
         }
@@ -295,6 +427,23 @@
         
         // Initialize Page - Render All Sections
         function init() {
+            // Display random quote
+            displayRandomQuote();
+            
+            // Update visit counter
+            updateVisitCounter();
+            
+            // Calculate and display years of experience
+            calculateExperience();
+            
+            // Display last updated date
+            displayLastUpdated();
+            
+            // Update Morocco time immediately and then every second
+            updateMoroccoTime();
+            setInterval(updateMoroccoTime, 1000);
+            
+            // Render all sections
             renderAbout();
             renderSkills();
             renderPortfolio();
