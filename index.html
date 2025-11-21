@@ -175,11 +175,19 @@
             skills.forEach(function(skill) {
                 const li = document.createElement('li');
                 li.className = 'skill-item';
-                li.textContent = skill.name;
                 li.setAttribute('title', skill.description);
                 li.setAttribute('data-name', skill.name.toLowerCase());
                 li.setAttribute('data-description', skill.description.toLowerCase());
                 
+                li.textContent = skill.name + ' ';
+                
+                const searchLink = document.createElement('a');
+                searchLink.href = 'https://www.google.com/search?q=' + encodeURIComponent(skill.name);
+                searchLink.textContent = '🔍';
+                searchLink.target = '_blank';
+                searchLink.title = 'Search for ' + skill.name;
+                
+                li.appendChild(searchLink);
                 skillsList.appendChild(li);
             });
         }
