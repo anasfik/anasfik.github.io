@@ -140,14 +140,8 @@
             skills.forEach(function(skill) {
                 const li = document.createElement('li');
                 li.className = 'skill-item';
-                
-                const skillName = document.createElement('strong');
-                skillName.textContent = skill.name;
-                
-                const skillDesc = document.createTextNode(' - ' + skill.description);
-                
-                li.appendChild(skillName);
-                li.appendChild(skillDesc);
+                li.textContent = skill.name;
+                li.setAttribute('title', skill.description);
                 li.setAttribute('data-name', skill.name.toLowerCase());
                 li.setAttribute('data-description', skill.description.toLowerCase());
                 
