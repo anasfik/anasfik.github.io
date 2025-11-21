@@ -113,43 +113,37 @@
         ];
 
 
-        // Portfolio Projects (with star counts - update these periodically)
+        // Portfolio Projects (GitHub badges will show real-time stars automatically)
         const portfolio = [
           {
             title: "flutter_nostr",
             description: "A full-featured Flutter SDK for building Nostr-powered social apps: timelines, chat, identity, relay management, event subscriptions, and more.",
-            link: "https://github.com/anasfik/flutter_nostr",
-            stars: 150
+            link: "https://github.com/anasfik/flutter_nostr"
           },
           {
             title: "dart_nostr",
             description: "Core Dart/Flutter Nostr client toolkit with key management, relay handling, event creation, and support for many NIPs. Used as the foundation for decentralized apps.",
-            link: "https://github.com/anasfik/nostr",
-            stars: 95
+            link: "https://github.com/anasfik/nostr"
           },
           {
             title: "OpenAI Dart / Flutter SDK",
             description: "A Dart package for integrating OpenAI APIs (GPT, DALL-E, Whisper, etc.) into Flutter or server-side Dart apps. Makes it easy to build AI-powered apps.",
-            link: "https://github.com/anasfik/openai",
-            stars: 320
+            link: "https://github.com/anasfik/openai"
           },
           {
             title: "nostr_relay_management",
             description: "A Dart package implementing NIP-86 (Relay Management API) to help developers manage relay lists, query relay metadata, and build smarter relay UIs.",
-            link: "https://github.com/anasfik/nostr_relay_management",
-            stars: 12
+            link: "https://github.com/anasfik/nostr_relay_management"
           },
           {
             title: "flutter-spy",
             description: "A reverse-engineering tool to analyze Flutter apps. It helps inspect and extract insights and structure from compiled Flutter applications.",
-            link: "https://github.com/anasfik/flutter-spy",
-            stars: 78
+            link: "https://github.com/anasfik/flutter-spy"
           },
           {
             title: "Gwhyyy Android Apps",
             description: "Android applications published under the 'Gwhyyy' brand on Google Play. Includes utility and productivity apps that reflect my design and development style.",
-            link: "https://play.google.com/store/apps/developer?id=Gwhyyy&hl=en",
-            stars: null
+            link: "https://play.google.com/store/apps/developer?id=Gwhyyy&hl=en"
           }
         ];
 
@@ -199,11 +193,20 @@
                 const li = document.createElement('li');
                 
                 const title = document.createElement('h3');
-                title.textContent = project.title;
+                title.textContent = project.title + ' ';
                 
-                if (project.stars !== null && project.stars !== undefined) {
-                    const starCounter = document.createTextNode(' ★ ' + project.stars);
-                    title.appendChild(starCounter);
+                if (project.link && project.link.includes('github.com')) {
+                    const githubMatch = project.link.match(/github\.com\/([^\/]+)\/([^\/]+)/);
+                    if (githubMatch) {
+                        const username = githubMatch[1];
+                        const repo = githubMatch[2];
+                        const badgeUrl = 'https://img.shields.io/github/stars/' + username + '/' + repo;
+                        
+                        const badge = document.createElement('img');
+                        badge.src = badgeUrl;
+                        badge.alt = 'GitHub stars';
+                        title.appendChild(badge);
+                    }
                 }
                 
                 const description = document.createElement('p');
