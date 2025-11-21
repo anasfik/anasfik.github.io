@@ -184,7 +184,16 @@
                 const strong = document.createElement('strong');
                 strong.textContent = item.label + ': ';
                 li.appendChild(strong);
-                li.appendChild(document.createTextNode(item.value));
+                
+                if (item.label === 'Email') {
+                    const emailLink = document.createElement('a');
+                    emailLink.href = 'mailto:' + item.value;
+                    emailLink.textContent = item.value;
+                    li.appendChild(emailLink);
+                } else {
+                    li.appendChild(document.createTextNode(item.value));
+                }
+                
                 contactList.appendChild(li);
             });
         }
