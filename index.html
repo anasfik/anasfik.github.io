@@ -65,23 +65,23 @@
         // About Me Text
         const aboutMe = "Hello! I'm a passionate developer with experience in building web applications and solving complex problems. I enjoy working with modern technologies and constantly learning new skills to improve my craft.";
         
-        // Skills List
+        // Skills List (each skill has a name and description)
         const skills = [
-            "JavaScript",
-            "HTML",
-            "Python",
-            "React",
-            "Node.js",
-            "Git",
-            "SQL",
-            "REST APIs",
-            "TypeScript",
-            "Express.js",
-            "MongoDB",
-            "PostgreSQL",
-            "Docker",
-            "AWS",
-            "Linux"
+            { name: "JavaScript", description: "Modern ES6+ JavaScript for building interactive web applications and dynamic user interfaces" },
+            { name: "HTML", description: "Semantic HTML5 markup for building accessible and SEO-friendly web pages" },
+            { name: "Python", description: "Backend development, automation scripts, data processing, and API development" },
+            { name: "React", description: "Component-based UI development with hooks, state management, and modern React patterns" },
+            { name: "Node.js", description: "Server-side JavaScript runtime for building scalable backend applications and APIs" },
+            { name: "Git", description: "Version control, branching strategies, collaboration workflows, and repository management" },
+            { name: "SQL", description: "Database queries, schema design, joins, optimization, and relational database management" },
+            { name: "REST APIs", description: "RESTful API design, implementation, integration, and documentation" },
+            { name: "TypeScript", description: "Type-safe JavaScript development with interfaces, generics, and advanced type systems" },
+            { name: "Express.js", description: "Fast Node.js web framework for building APIs and web applications with middleware" },
+            { name: "MongoDB", description: "NoSQL database design, querying, indexing, and data modeling for scalable applications" },
+            { name: "PostgreSQL", description: "Advanced relational database with complex queries, transactions, and performance tuning" },
+            { name: "Docker", description: "Container orchestration, image creation, multi-container applications, and deployment" },
+            { name: "AWS", description: "Cloud infrastructure, EC2, S3, Lambda, deployment, and cloud architecture design" },
+            { name: "Linux", description: "Command line proficiency, server administration, shell scripting, and system configuration" }
         ];
         
         // Portfolio Projects (add link field for each project)
@@ -140,7 +140,17 @@
             skills.forEach(function(skill) {
                 const li = document.createElement('li');
                 li.className = 'skill-item';
-                li.textContent = skill;
+                
+                const skillName = document.createElement('strong');
+                skillName.textContent = skill.name;
+                
+                const skillDesc = document.createTextNode(' - ' + skill.description);
+                
+                li.appendChild(skillName);
+                li.appendChild(skillDesc);
+                li.setAttribute('data-name', skill.name.toLowerCase());
+                li.setAttribute('data-description', skill.description.toLowerCase());
+                
                 skillsList.appendChild(li);
             });
         }
@@ -214,16 +224,17 @@
             });
         }
         
-        // Filter Skills Function
+        // Filter Skills Function (searches both name and description)
         function filterSkills() {
             const searchInput = document.getElementById('skillSearch');
             const searchTerm = searchInput.value.toLowerCase();
             const skillItems = document.querySelectorAll('.skill-item');
             
             skillItems.forEach(function(item) {
-                const skillText = item.textContent.toLowerCase();
+                const skillName = item.getAttribute('data-name');
+                const skillDesc = item.getAttribute('data-description');
                 
-                if (skillText.includes(searchTerm)) {
+                if (skillName.includes(searchTerm) || skillDesc.includes(searchTerm)) {
                     item.style.display = '';
                 } else {
                     item.style.display = 'none';
