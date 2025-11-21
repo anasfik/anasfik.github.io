@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+</head>
+<body>
+    <h1>Portfolio</h1>
+    
+    <hr>
+    
+    <section id="about">
+        <h2>About Me</h2>
+        <p>
+            Hello! I'm a passionate developer with experience in building web applications and solving complex problems. 
+            I enjoy working with modern technologies and constantly learning new skills to improve my craft.
+        </p>
+    </section>
+    
+    <hr>
+    
+    <section id="skills">
+        <h2>Skills</h2>
+        <p>Search for a skill:</p>
+        <input 
+            type="text" 
+            id="skillSearch" 
+            placeholder="Type to search skills..." 
+            oninput="filterSkills()"
+        >
+        <br><br>
+        <ul id="skillsList">
+            <li class="skill-item">JavaScript</li>
+            <li class="skill-item">HTML</li>
+            <li class="skill-item">Python</li>
+            <li class="skill-item">React</li>
+            <li class="skill-item">Node.js</li>
+            <li class="skill-item">Git</li>
+            <li class="skill-item">SQL</li>
+            <li class="skill-item">REST APIs</li>
+            <li class="skill-item">TypeScript</li>
+            <li class="skill-item">Express.js</li>
+            <li class="skill-item">MongoDB</li>
+            <li class="skill-item">PostgreSQL</li>
+            <li class="skill-item">Docker</li>
+            <li class="skill-item">AWS</li>
+            <li class="skill-item">Linux</li>
+        </ul>
+    </section>
+    
+    <hr>
+    
+    <section id="portfolio">
+        <h2>Portfolio</h2>
+        <ul>
+            <li>
+                <h3>E-commerce Platform</h3>
+                <p>A full-stack online shopping platform with user authentication, product catalog, and payment integration.</p>
+            </li>
+            <li>
+                <h3>Task Management App</h3>
+                <p>A collaborative task tracking application with real-time updates and team collaboration features.</p>
+            </li>
+            <li>
+                <h3>Weather Dashboard</h3>
+                <p>An interactive weather application that displays current conditions and forecasts using third-party APIs.</p>
+            </li>
+            <li>
+                <h3>Portfolio Website Generator</h3>
+                <p>A tool that helps developers create customizable portfolio websites with various templates.</p>
+            </li>
+        </ul>
+    </section>
+    
+    <hr>
+    
+    <section id="contact">
+        <h2>Contact</h2>
+        <ul>
+            <li><strong>Email:</strong> contact@example.com</li>
+            <li><strong>Phone:</strong> +1 (555) 123-4567</li>
+            <li><strong>Location:</strong> San Francisco, CA</li>
+        </ul>
+    </section>
+    
+    <hr>
+    
+    <section id="socials">
+        <h2>Social Media</h2>
+        <ul>
+            <li><a href="https://github.com/username" target="_blank">GitHub</a></li>
+            <li><a href="https://linkedin.com/in/username" target="_blank">LinkedIn</a></li>
+            <li><a href="https://twitter.com/username" target="_blank">Twitter</a></li>
+            <li><a href="https://dev.to/username" target="_blank">Dev.to</a></li>
+        </ul>
+    </section>
+    
+    <hr>
+    
+    <footer>
+        <p>&copy; 2025 My Portfolio. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function filterSkills() {
+            const searchInput = document.getElementById('skillSearch');
+            const searchTerm = searchInput.value.toLowerCase();
+            const skillItems = document.querySelectorAll('.skill-item');
+            
+            skillItems.forEach(function(item) {
+                const skillText = item.textContent.toLowerCase();
+                
+                if (skillText.includes(searchTerm)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
