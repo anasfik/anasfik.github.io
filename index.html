@@ -12,10 +12,7 @@
     
     <section id="about">
         <h2>About Me</h2>
-        <p>
-            Hello! I'm a passionate developer with experience in building web applications and solving complex problems. 
-            I enjoy working with modern technologies and constantly learning new skills to improve my craft.
-        </p>
+        <p id="aboutText"></p>
     </section>
     
     <hr>
@@ -30,70 +27,28 @@
             oninput="filterSkills()"
         >
         <br><br>
-        <ul id="skillsList">
-            <li class="skill-item">JavaScript</li>
-            <li class="skill-item">HTML</li>
-            <li class="skill-item">Python</li>
-            <li class="skill-item">React</li>
-            <li class="skill-item">Node.js</li>
-            <li class="skill-item">Git</li>
-            <li class="skill-item">SQL</li>
-            <li class="skill-item">REST APIs</li>
-            <li class="skill-item">TypeScript</li>
-            <li class="skill-item">Express.js</li>
-            <li class="skill-item">MongoDB</li>
-            <li class="skill-item">PostgreSQL</li>
-            <li class="skill-item">Docker</li>
-            <li class="skill-item">AWS</li>
-            <li class="skill-item">Linux</li>
-        </ul>
+        <ul id="skillsList"></ul>
     </section>
     
     <hr>
     
     <section id="portfolio">
         <h2>Portfolio</h2>
-        <ul>
-            <li>
-                <h3>E-commerce Platform</h3>
-                <p>A full-stack online shopping platform with user authentication, product catalog, and payment integration.</p>
-            </li>
-            <li>
-                <h3>Task Management App</h3>
-                <p>A collaborative task tracking application with real-time updates and team collaboration features.</p>
-            </li>
-            <li>
-                <h3>Weather Dashboard</h3>
-                <p>An interactive weather application that displays current conditions and forecasts using third-party APIs.</p>
-            </li>
-            <li>
-                <h3>Portfolio Website Generator</h3>
-                <p>A tool that helps developers create customizable portfolio websites with various templates.</p>
-            </li>
-        </ul>
+        <ul id="portfolioList"></ul>
     </section>
     
     <hr>
     
     <section id="contact">
         <h2>Contact</h2>
-        <ul>
-            <li><strong>Email:</strong> contact@example.com</li>
-            <li><strong>Phone:</strong> +1 (555) 123-4567</li>
-            <li><strong>Location:</strong> San Francisco, CA</li>
-        </ul>
+        <ul id="contactList"></ul>
     </section>
     
     <hr>
     
     <section id="socials">
         <h2>Social Media</h2>
-        <ul>
-            <li><a href="https://github.com/username" target="_blank">GitHub</a></li>
-            <li><a href="https://linkedin.com/in/username" target="_blank">LinkedIn</a></li>
-            <li><a href="https://twitter.com/username" target="_blank">Twitter</a></li>
-            <li><a href="https://dev.to/username" target="_blank">Dev.to</a></li>
-        </ul>
+        <ul id="socialsList"></ul>
     </section>
     
     <hr>
@@ -103,6 +58,154 @@
     </footer>
 
     <script>
+        // ============================================
+        // CONFIGURATION - EDIT YOUR DATA HERE
+        // ============================================
+        
+        // About Me Text
+        const aboutMe = "Hello! I'm a passionate developer with experience in building web applications and solving complex problems. I enjoy working with modern technologies and constantly learning new skills to improve my craft.";
+        
+        // Skills List
+        const skills = [
+            "JavaScript",
+            "HTML",
+            "Python",
+            "React",
+            "Node.js",
+            "Git",
+            "SQL",
+            "REST APIs",
+            "TypeScript",
+            "Express.js",
+            "MongoDB",
+            "PostgreSQL",
+            "Docker",
+            "AWS",
+            "Linux"
+        ];
+        
+        // Portfolio Projects (add link field for each project)
+        const portfolio = [
+            {
+                title: "E-commerce Platform",
+                description: "A full-stack online shopping platform with user authentication, product catalog, and payment integration.",
+                link: "https://github.com/username/ecommerce-platform"
+            },
+            {
+                title: "Task Management App",
+                description: "A collaborative task tracking application with real-time updates and team collaboration features.",
+                link: "https://github.com/username/task-manager"
+            },
+            {
+                title: "Weather Dashboard",
+                description: "An interactive weather application that displays current conditions and forecasts using third-party APIs.",
+                link: "https://github.com/username/weather-dashboard"
+            },
+            {
+                title: "Portfolio Website Generator",
+                description: "A tool that helps developers create customizable portfolio websites with various templates.",
+                link: "https://github.com/username/portfolio-generator"
+            }
+        ];
+        
+        // Contact Information
+        const contact = [
+            { label: "Email", value: "contact@example.com" },
+            { label: "Phone", value: "+1 (555) 123-4567" },
+            { label: "Location", value: "San Francisco, CA" }
+        ];
+        
+        // Social Media Links
+        const socials = [
+            { name: "GitHub", url: "https://github.com/username" },
+            { name: "LinkedIn", url: "https://linkedin.com/in/username" },
+            { name: "Twitter", url: "https://twitter.com/username" },
+            { name: "Dev.to", url: "https://dev.to/username" }
+        ];
+        
+        // ============================================
+        // RENDERING FUNCTIONS - NO NEED TO EDIT BELOW
+        // ============================================
+        
+        // Render About Me
+        function renderAbout() {
+            document.getElementById('aboutText').textContent = aboutMe;
+        }
+        
+        // Render Skills
+        function renderSkills() {
+            const skillsList = document.getElementById('skillsList');
+            skillsList.innerHTML = '';
+            
+            skills.forEach(function(skill) {
+                const li = document.createElement('li');
+                li.className = 'skill-item';
+                li.textContent = skill;
+                skillsList.appendChild(li);
+            });
+        }
+        
+        // Render Portfolio
+        function renderPortfolio() {
+            const portfolioList = document.getElementById('portfolioList');
+            portfolioList.innerHTML = '';
+            
+            portfolio.forEach(function(project) {
+                const li = document.createElement('li');
+                
+                const title = document.createElement('h3');
+                title.textContent = project.title;
+                
+                const description = document.createElement('p');
+                description.textContent = project.description;
+                
+                li.appendChild(title);
+                li.appendChild(description);
+                
+                if (project.link) {
+                    const link = document.createElement('a');
+                    link.href = project.link;
+                    link.textContent = "View Project";
+                    link.target = "_blank";
+                    li.appendChild(link);
+                }
+                
+                portfolioList.appendChild(li);
+            });
+        }
+        
+        // Render Contact
+        function renderContact() {
+            const contactList = document.getElementById('contactList');
+            contactList.innerHTML = '';
+            
+            contact.forEach(function(item) {
+                const li = document.createElement('li');
+                const strong = document.createElement('strong');
+                strong.textContent = item.label + ': ';
+                li.appendChild(strong);
+                li.appendChild(document.createTextNode(item.value));
+                contactList.appendChild(li);
+            });
+        }
+        
+        // Render Social Media
+        function renderSocials() {
+            const socialsList = document.getElementById('socialsList');
+            socialsList.innerHTML = '';
+            
+            socials.forEach(function(social) {
+                const li = document.createElement('li');
+                const link = document.createElement('a');
+                link.href = social.url;
+                link.textContent = social.name;
+                link.target = "_blank";
+                li.appendChild(link);
+                socialsList.appendChild(li);
+            });
+        }
+        
+        // Filter Skills Function
         function filterSkills() {
             const searchInput = document.getElementById('skillSearch');
             const searchTerm = searchInput.value.toLowerCase();
@@ -118,6 +221,18 @@
                 }
             });
         }
+        
+        // Initialize Page - Render All Sections
+        function init() {
+            renderAbout();
+            renderSkills();
+            renderPortfolio();
+            renderContact();
+            renderSocials();
+        }
+        
+        // Run initialization when page loads
+        init();
     </script>
 </body>
 </html>
